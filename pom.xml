@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.heifan</groupId>
+    <artifactId>developer-server</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.5</version>
+    </parent>
+
+    <modules>
+        <module>developer-gataway</module>
+        <module>developer-common</module>
+        <module>developer-config</module>
+        <module>developer-provider</module>
+    </modules>
+
+    <properties>
+        <spring.boot.version>2.3.4.RELEASE</spring.boot.version>
+        <java.version>1.8</java.version>
+        <mysql.version>5.1.49</mysql.version>
+        <mybatis-spring-boot-starter.version>2.0.0</mybatis-spring-boot-starter.version>
+        <fastjson.version>1.2.73</fastjson.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-io.version>2.7</commons-io.version>
+        <commons-logging.version>1.2</commons-logging.version>
+        <commons-text.version>1.9</commons-text.version>
+        <commons-compress.version>1.20</commons-compress.version>
+        <selenium-java.version>3.14.0</selenium-java.version>
+        <jsoup.version>1.10.2</jsoup.version>
+        <xxl-job-executor.version>2.0.1</xxl-job-executor.version>
+        <easyexcel.version>2.2.10</easyexcel.version>
+        <hutool.version>5.4.0</hutool.version>
+        <crew-core.version>1.0.3</crew-core.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
+        <poi.version>4.1.2</poi.version>
+        <jjwt.version>0.9.0</jjwt.version>
+        <com.github.binarywang.version>3.9.0</com.github.binarywang.version>
+        <!-- 第三方 -->
+        <qiniu-java-sdk.version>7.2.29</qiniu-java-sdk.version>
+        <aliyun-java-sdk-core.version>4.5.7</aliyun-java-sdk-core.version>
+        <aliyun-java-sdk-dysmsapi.version>2.1.0</aliyun-java-sdk-dysmsapi.version>
+        <alipay-sdk-java.version>4.16.21.ALL</alipay-sdk-java.version>
+        <pdfbox.version>2.0.21</pdfbox.version>
+        <fr.opensagres.poi.xwpf.converter.pdf.version>2.0.2</fr.opensagres.poi.xwpf.converter.pdf.version>
+        <itextpdf.version>5.5.13.2</itextpdf.version>
+        <!-- 图片裁剪 -->
+        <thumbnailator.verison>0.4.12</thumbnailator.verison>
+        <slf4j.version>1.7.21</slf4j.version>
+        <lmbok.version>1.18.4</lmbok.version>
+        <junit.version>4.12</junit.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2021.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2020.0.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lmbok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- mysql driver-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!-- 第三方 -->
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>${qiniu-java-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun-java-sdk-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+                <version>${aliyun-java-sdk-dysmsapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${alipay-sdk-java.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- PDF相关 -->
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>${pdfbox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.opensagres.xdocreport</groupId>
+                <artifactId>fr.opensagres.poi.xwpf.converter.pdf</artifactId>
+                <version>${fr.opensagres.poi.xwpf.converter.pdf.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.xmlbeans</groupId>
+                        <artifactId>xmlbeans</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml-schemas</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>itextpdf</artifactId>
+                <version>${itextpdf.version}</version>
+            </dependency>
+            <!-- mybatis -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.4.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>3.4.3.2</version>
+            </dependency>
+            <!--mp代码生成器-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>3.3.2</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>mybatis-plus-extension</artifactId>
+                        <groupId>com.baomidou</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.31</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>2.11.2</version>
+            </dependency>
+            <!-- easyexcel -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+            <!-- 工具包 https://github.com/looly/hutool/-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!-- 工具包 https://github.com/looly/hutool/ http-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-http</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!-- 工具包 https://github.com/looly/hutool/ crypto-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-crypto</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!-- jjwt  -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <!-- 图形验证码 https://github.com/whvcse/EasyCaptcha-->
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${easy-captcha.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                        <forkMode>once</forkMode>
+                        <argLine>-Dfile.encoding=UTF-8</argLine>
+                    </configuration>
+                    <!-- 插件手动匹配JUnit 目前是使用4.10的版本-->
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.surefire</groupId>
+                            <artifactId>surefire-junit47</artifactId>
+                            <version>2.19.1</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <!-- 代码样式检查 -->
+                <!-- https://www.rectcircle.cn/posts/java-code-style-check-implement/ -->
+                <!-- http://maven.apache.org/plugins/maven-checkstyle-plugin/ -->
+                <!-- 需要找到 maven-checkstyle-plugin  对应 checks 版本-->
+                <plugin>
+                    <groupId>pl.project13.maven</groupId>
+                    <artifactId>git-commit-id-plugin</artifactId>
+                    <version>4.0.0</version>
+                    <executions>
+                        <execution>
+                            <id>get-the-git-infos</id>
+                            <phase>initialize</phase>
+                            <goals>
+                                <goal>revision</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <!-- ".git"文件路径;默认值:${project.basedir}/.git; -->
+                        <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                        <!--,构建过程中,是否打印详细信息;默认值:false;-->
+                        <verbose>false</verbose>
+                        <!--日期格式;默认值:dd.MM.yyyy '@' HH:mm:ss z;-->
+                        <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+                        <prefix>git</prefix>
+                        <injectAllReactorProjects>true</injectAllReactorProjects>
+                        <generateGitPropertiesFile>false</generateGitPropertiesFile>
+                        <format>json</format>
+                        <gitDescribe>
+                            <!--是否生成描述属性-->
+                            <skip>false</skip>
+                            <!--提交操作未发现tag时,仅打印提交操作ID,-->
+                            <always>false</always>
+                            <!--构建触发时,代码有修改时(即"dirty state"),添加指定后缀;默认值:"";-->
+                            <dirty>-dirty</dirty>
+                        </gitDescribe>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <!-- 其他仓库,按设定顺序进行查找. -->
+    <repositories>
+        <repository>
+            <id>org.springframework.maven.milestone</id>
+            <name>Spring Framework Maven Milestone Repository</name>
+            <url>https://maven.springframework.org/milestone</url>
+        </repository>
+        <!-- 阿里云的maven仓库 -->
+        <repository>
+            <id>nexus-aliyun</id>
+            <name>Nexus aliyun</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>com.e-iceblue</id>
+            <url>https://repo.e-iceblue.cn/repository/maven-public/</url>
+        </repository>
+    </repositories>
+</project>

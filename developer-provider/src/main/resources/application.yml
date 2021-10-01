@@ -1,0 +1,16 @@
+server:
+  port: 27788
+
+spring:
+  application:
+    name: developer-provider
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      httpclient:
+        pool:
+          max-idle-time: 10000
+          max-connections: 30
+  codec:
+    max-in-memory-size: 5MB

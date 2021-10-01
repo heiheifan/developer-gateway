@@ -1,0 +1,37 @@
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password:
+    lettuce:
+      pool:
+        max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: 2000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        min-idle: 0 # 连接池中的最小空闲连接
+        max-idle: 8 # 连接池中的最大空闲连接
+      shutdown-timeout: 100 # 关闭超时时间
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 2e7df073-ee03-4421-8ba5-d4d7a9d25caa
+        enabled: true
+    gateway:
+      discovery:
+        locator:
+          # 是否可以通过其他服务的serviceId来转发到具体的服务实例。默认为false
+          # 为true,自动创建路由,路由访问方式：http://Gateway_HOST:Gateway_PORT/大写的serviceId/**，其中微服务应用名默认大写访问
+          enabled: false
+      ##########我是一条分割线 蔚蓝数云 ##########
+      routes:
+        - id: test_route # 应用管理
+          uri: lb://developer-provider
+          predicates:
+            - Path=/api/v1/gateway/**
+          filters:
+            - StripPrefix=3
+            - PreserveHostHeader # 防止host被修改为localhost
+logging:
+  config: classpath:logback-dev.xml
+

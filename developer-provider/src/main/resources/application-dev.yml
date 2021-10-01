@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 2e7df073-ee03-4421-8ba5-d4d7a9d25caa
+        enabled: true
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/provider
+    gateway:
+      discovery:
+        locator:
+          # 是否可以通过其他服务的serviceId来转发到具体的服务实例。默认为false
+          # 为true,自动创建路由,路由访问方式：http://Gateway_HOST:Gateway_PORT/大写的serviceId/**，其中微服务应用名默认大写访问
+          enabled: true
+      ##########我是一条分割线 蔚蓝数云 ##########
+      routes:
+        - id: route_test # 应用管理
+          predicates:
+            - Path=/blog
+          filters:
+            - StripPrefix=3
+            - PreserveHostHeader # 防止host被修改为localhost
+          uri: http://1.15.26.17:8090
+logging:
+  config: classpath:logback-dev.xml
+
