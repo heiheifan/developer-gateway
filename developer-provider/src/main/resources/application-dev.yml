@@ -14,9 +14,8 @@ spring:
           # 是否可以通过其他服务的serviceId来转发到具体的服务实例。默认为false
           # 为true,自动创建路由,路由访问方式：http://Gateway_HOST:Gateway_PORT/大写的serviceId/**，其中微服务应用名默认大写访问
           enabled: true
-      ##########我是一条分割线 蔚蓝数云 ##########
       routes:
-        - id: route_test # 应用管理
+        - id: route_test # 路由测试
           predicates:
             - Path=/blog
           filters:
